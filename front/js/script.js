@@ -11,5 +11,5 @@ function produit(data) {
     anchor.text = "test"
     const items = document.querySelector("#items")
     items.appendChild(anchor) 
-    console.log("nous")
+    //console.log("nous")
 }
