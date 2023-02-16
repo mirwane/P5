@@ -1,12 +1,12 @@
 fetch("http://localhost:3000/api/products")
   .then((reponse) => reponse.json())
-  .then((data) => ajouterProduit(data));
+  .then((canape) => ajouterProduit(canape));
 
-function ajouterProduit(data) {
-  data.forEach((iteration) => {
-    const { id, imageUrl, altTxt, name, description } = iteration;
+function ajouterProduit(canape) {
+  canape.forEach((iteration) => {
+    const { _id, imageUrl, altTxt, name, description } = iteration;
 
-    const ancre = makeAncre(id);
+    const ancre = makeAncre(_id);
     const article = document.createElement("article");
     const image = makeImage(imageUrl, altTxt);
     const h3 = makeH3(name);
@@ -16,9 +16,9 @@ function ajouterProduit(data) {
     appendArticle(article, image, h3, p);
   });
 }
-function makeAncre(id) {
+function makeAncre(_id) {
   const ancre = document.createElement("a");
-  ancre.href = "./product.html?id=" + id;
+  ancre.href = "./product.html?_id=" + _id;
   return ancre;
 }
 function appendproduit(ancre, article) {
@@ -55,17 +55,17 @@ function makeP(description) {
 // "White",
 // "Black"
 // ],
-// "_id": "107fb5b75607497b96722bda5b504926",
+// "__id": "107fb5b75607497b96722bda5b504926",
 // "name": "Kanap Sinopé",
 // "price": 1849,
 // "imageUrl": "http://localhost:3000/images/kanap01.jpeg",
-// "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+// "description": "Excepteur sint occaecat cupicanapet non pro_ident, sunt in culpa qui officia deserunt mollit anim _id est laborum.",
 // "altTxt": "Photo d'un canapé bleu, deux places"
 
-// <!-- <a href="./product.html?id=42">
+// <!-- <a href="./product.html?_id=42">
 //           <article>
 //             <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
 //             <h3 class="productName">Kanap name1</h3>
-//             <p class="productDescription">Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.</p>
+//             <p class="productDescription">Dis enim malesuada risus sapien grav_ida nulla nisl arcu. Dis enim malesuada risus sapien grav_ida nulla nisl arcu.</p>
 //           </article>
 //         </a> -->
