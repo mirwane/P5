@@ -1,6 +1,8 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("_id");
+let itemPrice = 0;
+let imgUrl, atlText;
 
 fetch(`http://localhost:3000/api/products/${id}`)
   .then((reponse) => reponse.json())
@@ -8,6 +10,9 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
 function ajouterInfos(canape) {
   const { colors, price, imageUrl, altTxt, name, description } = canape;
+  itemPrice = price;
+  imgUrl = imageUrl;
+  altText = altTxt;
   makeImage(imageUrl, altTxt);
   makePrice(price);
   makeName(name);
@@ -41,4 +46,32 @@ function makeColor(colors) {
     option.textContent = couleurs;
     select.appendChild(option);
   });
+}
+const button = document.querySelector("#addToCart");
+button.addEventListener("click", (e) => {
+  const colors = document.querySelector("#colors").value;
+  const quantity = document.querySelector("#quantity").value;
+  if (orderInvalide(colors, quantity)) return;
+  panier(colors, quantity);
+  redirection();
+});
+function panier(colors, quantity) {
+  const data = {
+    colors: colors,
+    quantity: Number(quantity),
+    id: id,
+    price: itemPrice,
+    imageUrl: imgUrl,
+    altTxt: altText,
+  };
+  localStorage.setItem(id, JSON.stringify(data));
+}
+function orderInvalide(colors, quantity) {
+  if (colors == null || colors === "" || quantity == null || quantity == 0) {
+    alert("selectionnez une couleur et une quantité");
+    return true;
+  }
+}
+function redirection() {
+  window.location.href = "cart.html";
 }
