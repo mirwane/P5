@@ -64,7 +64,13 @@ function panier(colors, quantity) {
     imageUrl: imgUrl,
     altTxt: altText,
   };
-  localStorage.setItem(id, JSON.stringify(data));
+  const key = id + "_" + colors;
+  let storedData = JSON.parse(localStorage.getItem(key));
+
+  if (storedData && storedData.colors === colors) {
+    data.quantity += storedData.quantity;
+  }
+  localStorage.setItem(key, JSON.stringify(data));
 }
 function orderInvalide(colors, quantity) {
   if (colors == null || colors === "" || quantity == null || quantity == 0) {
