@@ -1,13 +1,14 @@
+// Description: Script pour la page produit
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("_id");
 let itemPrice = 0;
 let imgUrl, atlText;
-
+// Description: Récupération des données de l'API
 fetch(`http://localhost:3000/api/products/${id}`)
   .then((reponse) => reponse.json())
   .then((id) => ajouterInfos(id));
-
+// Description: Création des éléments HTML
 function ajouterInfos(canape) {
   const { colors, price, imageUrl, altTxt, name, description } = canape;
   itemPrice = price;
@@ -47,6 +48,7 @@ function makeColor(colors) {
     select.appendChild(option);
   });
 }
+// Description: Ajout au panier
 const button = document.querySelector("#addToCart");
 button.addEventListener("click", (e) => {
   const colors = document.querySelector("#colors").value;
@@ -55,6 +57,7 @@ button.addEventListener("click", (e) => {
   panier(colors, quantity);
   redirection();
 });
+// Description: Ajout au local storage
 function panier(color, quantity) {
   const data = {
     color: color,
@@ -71,12 +74,14 @@ function panier(color, quantity) {
   }
   localStorage.setItem(key, JSON.stringify(data));
 }
+// Description: Vérification des données
 function orderInvalide(colors, quantity) {
   if (colors == null || colors === "" || quantity == null || quantity == 0) {
     alert("selectionnez une couleur et une quantité");
     return true;
   }
 }
+// Description: Redirection vers le panier
 function redirection() {
   window.location.href = "cart.html";
 }
