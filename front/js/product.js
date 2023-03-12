@@ -55,19 +55,18 @@ button.addEventListener("click", (e) => {
   panier(colors, quantity);
   redirection();
 });
-function panier(colors, quantity) {
+function panier(color, quantity) {
   const data = {
-    colors: colors,
+    color: color,
     quantity: Number(quantity),
     id: id,
     price: itemPrice,
     imageUrl: imgUrl,
     altTxt: altText,
   };
-  const key = id + "_" + colors;
+  const key = id + "_" + color;
   let storedData = JSON.parse(localStorage.getItem(key));
-
-  if (storedData && storedData.colors === colors) {
+  if (storedData && storedData.color === color) {
     data.quantity += storedData.quantity;
   }
   localStorage.setItem(key, JSON.stringify(data));
