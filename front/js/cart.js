@@ -1,4 +1,4 @@
-// Description: Script pour la page panier
+// Script pour la page panier
 const cart = [];
 const numberOfItems = localStorage.length;
 for (let i = 0; i < numberOfItems; i++) {
@@ -6,11 +6,13 @@ for (let i = 0; i < numberOfItems; i++) {
   const itemObject = JSON.parse(item);
   cart.push(itemObject);
 }
+
 // Afficher les articles du panier
 cart.forEach((item) => {
   displayItem(item);
 });
-// Description: Création des éléments HTML
+
+// Création des éléments HTML
 function displayItem(item) {
   const article = document.createElement("article");
   article.classList.add("cart__item");
@@ -59,15 +61,16 @@ function displayItem(item) {
   quantityinput.addEventListener("input", (e) =>
     updatePriceAndQuantity(item.id + "_" + item.color, quantityinput.value)
   );
+
   // Supprimer un article du panier
   quantity.appendChild(quantityinput);
   const settingsdelete = document.createElement("div");
   settingsdelete.classList.add("cart__item__content__settings__delete");
   settingsdelete.addEventListener("click", (e) => {
-    localStorage.removeItem(item.id + "_" + item.color);
+    if (confirm("Voulez-vous vraiment supprimer cet article du panier ?"))
+      localStorage.removeItem(item.id + "_" + item.color);
     article.remove();
-    displayTotalQuantity();
-    displayTotalPrice();
+    location.reload();
   });
   settings.appendChild(settingsdelete);
   const deleteItem = document.createElement("p");
@@ -75,6 +78,7 @@ function displayItem(item) {
   deleteItem.textContent = "Supprimer";
   settingsdelete.appendChild(deleteItem);
 }
+
 // Afficher la quantité total
 displayTotalQuantity();
 function displayTotalQuantity() {
@@ -82,6 +86,7 @@ function displayTotalQuantity() {
   const total = cart.reduce((acc, item) => acc + item.quantity, 0);
   totalQuantity.textContent = total;
 }
+
 // Afficher le prix total
 displayTotalPrice();
 function displayTotalPrice() {
@@ -89,6 +94,7 @@ function displayTotalPrice() {
   const price = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   totalPrice.textContent = price;
 }
+
 // Enregistrer la nouvelle quantité
 function saveNewQuantity() {
   localStorage.clear();
@@ -96,6 +102,7 @@ function saveNewQuantity() {
     localStorage.setItem(item.id + "_" + item.color, JSON.stringify(item));
   });
 }
+
 // Mettre à jour le prix et la quantité
 function updatePriceAndQuantity(id, newvalue, item) {
   const itemToUpdate = cart.find((item) => item.id + "_" + item.color === id);
@@ -104,8 +111,10 @@ function updatePriceAndQuantity(id, newvalue, item) {
   displayTotalPrice();
   saveNewQuantity(item);
 }
+
 // Regex pour vérifier l'adresse email
 let regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+
 // Envoyer la commande
 const orderButton = document.querySelector("#order");
 orderButton.addEventListener("click", (e) => {
