@@ -1,7 +1,0 @@
-postman
-
-https://www.youtube.com/watch?v=KnRXWZ5Q1d4
-
-https://www.youtube.com/watch?v=AwicscsvGLg&pp=ugMICgJmchABGAE%3D
-
-localestorage et sessionstorage et cookies
