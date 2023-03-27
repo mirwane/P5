@@ -145,6 +145,8 @@ orderButton.addEventListener("click", (e) => {
       "Content-Type": "application/json",
     },
   };
+
+  // Récupérer l'ID de la commande
   fetch("http://localhost:3000/api/products/order", options)
     .then((response) => response.json())
     .then((data) => {
