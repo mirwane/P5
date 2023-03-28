@@ -77,7 +77,6 @@ function panier(color, quantity) {
     color: color,
     quantity: Number(quantity),
     id: id,
-    price: itemPrice,
     imageUrl: imgUrl,
     altTxt: altText,
   };

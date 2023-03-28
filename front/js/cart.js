@@ -15,55 +15,46 @@ cart.forEach((item) => {
 // Création des éléments HTML
 function displayItem(item) {
   const article = document.createElement("article");
-
   article.classList.add("cart__item");
   article.dataset.id = item.id;
   article.dataset.color = item.color;
-
   const cart__items = document.querySelector("#cart__items");
   cart__items.appendChild(article);
-
   const ItemImg = document.createElement("div");
   ItemImg.classList.add("cart__item__img");
   article.appendChild(ItemImg);
-
   const image = document.createElement("img");
   image.src = item.imageUrl;
   image.alt = item.altTxt;
   ItemImg.appendChild(image);
-
   const ItemContent = document.createElement("div");
   ItemContent.classList.add("cart__item__content");
   article.appendChild(ItemContent);
-
   const description = document.createElement("div");
   description.classList.add("cart__item__content__description");
   ItemContent.appendChild(description);
-
   const name = document.createElement("h2");
   name.textContent = item.name;
   description.appendChild(name);
-
   const color = document.createElement("p");
   color.textContent = item.color;
   description.appendChild(color);
-
+  let price = document.createElement("p");
+  fetch(`http://localhost:3000/api/products/${item.id}`)
+    .then((reponse) => reponse.json())
+    .then((item) => {
+      price.textContent = item.price + " €";
+      description.appendChild(price);
+    });
   const settings = document.createElement("div");
   settings.classList.add("cart__item__content__settings");
   ItemContent.appendChild(settings);
-
   const quantity = document.createElement("div");
   quantity.classList.add("cart__item__content__settings__quantity");
   settings.appendChild(quantity);
-
   const quantityp = document.createElement("p");
   quantityp.textContent = "Qté :";
   quantity.appendChild(quantityp);
-
-  const price = document.createElement("p");
-  price.textContent = item.price + " €";
-  description.appendChild(price);
-
   const quantityinput = document.createElement("input");
   quantityinput.type = "number";
   quantityinput.classList.add("itemQuantity");
