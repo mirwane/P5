@@ -95,8 +95,22 @@ function displayTotalQuantity() {
 displayTotalPrice();
 function displayTotalPrice() {
   const totalPrice = document.querySelector("#totalPrice");
-  const price = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  totalPrice.textContent = price;
+  calculerPrixTotal(cart).then((e) => (totalPrice.textContent = e));
+}
+
+async function calculerPrixTotal(panier) {
+  let prixTotal = 0;
+
+  for (const item of panier) {
+    const response = await fetch(
+      `http://localhost:3000/api/products/${item.id}`
+    );
+    const data = await response.json();
+    const prixProduit = data.price;
+    prixTotal += prixProduit * item.quantity;
+  }
+
+  return prixTotal;
 }
 
 // Enregistrer la nouvelle quantité
@@ -126,6 +140,26 @@ orderButton.addEventListener("click", (e) => {
   if (cart.length === 0) {
     alert("Votre panier est vide");
     return;
+  }
+  const firstName = document.querySelector("#firstName");
+  if (firstName.value.length < 2) {
+    alert("Veuillez entrer un prénom valide");
+    return false;
+  }
+  const lastName = document.querySelector("#lastName");
+  if (lastName.value.length < 2) {
+    alert("Veuillez entrer un nom valide");
+    return false;
+  }
+  const address = document.querySelector("#address");
+  if (address.value.length < 5) {
+    alert("Veuillez entrer une adresse valide");
+    return false;
+  }
+  const city = document.querySelector("#city");
+  if (city.value.length < 2) {
+    alert("Veuillez entrer une ville valide");
+    return false;
   }
   const email = document.querySelector("#email");
   if (!regex.test(email.value)) {
