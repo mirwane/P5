@@ -143,27 +143,32 @@ orderButton.addEventListener("click", (e) => {
   }
   const firstName = document.querySelector("#firstName");
   if (firstName.value.length < 2) {
-    alert("Veuillez entrer un prénom valide");
+    document.querySelector("#firstNameErrorMsg").textContent =
+      "Veuillez entrer votre prénom";
     return false;
   }
   const lastName = document.querySelector("#lastName");
   if (lastName.value.length < 2) {
-    alert("Veuillez entrer un nom valide");
+    document.querySelector("#lastNameErrorMsg").textContent =
+      "Veuillez entrer votre nom";
     return false;
   }
   const address = document.querySelector("#address");
   if (address.value.length < 5) {
-    alert("Veuillez entrer une adresse valide");
+    document.querySelector("#addressErrorMsg").textContent =
+      "Veuillez entrer votre adresse";
     return false;
   }
   const city = document.querySelector("#city");
   if (city.value.length < 2) {
-    alert("Veuillez entrer une ville valide");
+    document.querySelector("#cityErrorMsg").textContent =
+      "Veuillez entrer votre ville";
     return false;
   }
   const email = document.querySelector("#email");
   if (!regex.test(email.value)) {
-    alert("Veuillez entrer une adresse email valide");
+    document.querySelector("#emailErrorMsg").textContent =
+      "Veuillez entrer votre email";
     return false;
   }
   const form = document.querySelector(".cart__order__form");
